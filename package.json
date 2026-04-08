@@ -1,0 +1,23 @@
+{
+  "name": "mcp-vfx-parsers",
+  "version": "0.1.0",
+  "description": "MCP server for VFX file formats: parse and generate Nuke .nk, MaterialX .mtlx, and USD .usda files",
+  "type": "module",
+  "bin": {
+    "mcp-vfx-parsers": "src/server.mjs"
+  },
+  "scripts": {
+    "start": "node src/server.mjs",
+    "test": "node --test tests/test-parsers.mjs"
+  },
+  "keywords": ["mcp", "vfx", "nuke", "materialx", "usd", "usda", "parser", "ai-tools", "claude"],
+  "license": "MIT",
+  "homepage": "https://maibaam.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MABAAM/mcp-vfx-parsers"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  }
+}
