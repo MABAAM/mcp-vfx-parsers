@@ -506,7 +506,11 @@ class Parser {
         // Target: single path or [path, path, …]
         if (this.match('punct', '[')) {
           const arr = this.parseArray();
-          attr.connections = arr.elements.filter(e => e.kind === 'path').map(e => e.value);
+          attr.connections = [];
+          for (const e of arr.elements) {
+            if (e.kind === 'path') attr.connections.push(e.value);
+            else attr.connections.push(`<INVALID:${e.kind}:${JSON.stringify(e.value)}>`);
+          }
         } else {
           const v = this.parseValue();
           if (v.kind === 'path') attr.connections.push(v.value);
@@ -549,7 +553,11 @@ class Parser {
       this.consume();
       if (this.match('punct', '[')) {
         const arr = this.parseArray();
-        rel.targets = arr.elements.filter(e => e.kind === 'path').map(e => e.value);
+        rel.targets = [];
+        for (const e of arr.elements) {
+          if (e.kind === 'path') rel.targets.push(e.value);
+          else rel.targets.push(`<INVALID:${e.kind}:${JSON.stringify(e.value)}>`);
+        }
       } else if (this.match('path')) {
         rel.targets.push(this.consume().value);
       } else if (this.match('kw', 'None')) {
