@@ -1,6 +1,6 @@
 {
   "name": "mcp-vfx-parsers",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "MCP server for VFX file formats: parse and generate Nuke .nk, MaterialX .mtlx, and USD .usda files",
   "type": "module",
   "bin": {

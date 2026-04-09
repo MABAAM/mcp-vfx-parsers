@@ -12,7 +12,7 @@ import { parseNk, generateNk, extractLinks as extractNkLinks } from "./parsers/n
 import { parseMtlx, generateMtlx, extractLinks as extractMtlxLinks } from "./parsers/mtlx.js";
 import { parseUsda, generateUsda, extractPrimTree, extractConnections, extractReferences } from "./parsers/usda.js";
 
-const server = new McpServer({ name: "mcp-vfx-parsers", version: "0.1.0" });
+const server = new McpServer({ name: "mcp-vfx-parsers", version: "0.2.0" });
 
 const MAX_INPUT_BYTES = 10 * 1024 * 1024; // 10 MB
 
