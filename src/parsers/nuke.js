@@ -164,7 +164,16 @@ export function parseNk(text) {
 
       // Root is scene-level, does not participate in the wire stack
       if (type === 'Root') {
-        scene.root = node;
+        if (scene.root) {
+          // Merge duplicate Root properties (keep later values)
+          for (const p of node.props) {
+            const idx = scene.root.props.findIndex(ep => ep.key === p.key);
+            if (idx >= 0) scene.root.props[idx] = p;
+            else scene.root.props.push(p);
+          }
+        } else {
+          scene.root = node;
+        }
         scene.ops.push({ kind: 'node', nodeIdx: -1 }); // sentinel: root
         continue;
       }
@@ -303,7 +312,17 @@ function unquote(s) {
   if (typeof s !== 'string') return '';
   const t = s.trim();
   if (t.length >= 2 && t.startsWith('"') && t.endsWith('"')) {
-    return t.slice(1, -1).replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+    return t.slice(1, -1).replace(/\\(["\\ntr0])/g, (_, ch) => {
+      switch (ch) {
+        case '"': return '"';
+        case '\\': return '\\';
+        case 'n': return '\n';
+        case 't': return '\t';
+        case 'r': return '\r';
+        case '0': return '\0';
+        default: return ch;
+      }
+    });
   }
   return t;
 }
